@@ -32,7 +32,6 @@ const EditForm = (props)=> {
     }
 
     useEffect( () => {
-        console.log('USE EFFECT')
         axiosWithAuth().get(`articles/${editId}`)
             .then(response => {
                 setArticle(response.data)
