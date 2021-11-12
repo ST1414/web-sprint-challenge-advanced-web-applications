@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
-import axiosWithAuth from '../utils/axiosWithAuth';
 
 const initialUser ={
     username: "",
@@ -11,9 +10,9 @@ const initialUser ={
 const Login = () => {
     
     const [user, setUser] = useState(initialUser);
+    const { push } = useHistory();
 
     const handleChange = (e) => {
-        console.log(e.target.value); // <<<<<<<<<<< CONSOLE LOG
         setUser({
             ...user,
             [e.target.name]: e.target.value
@@ -22,13 +21,14 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('CLICK SUBMIT')
-        
-        // 1. Authenticate
-        // 2. Save to local storage
-        // 3. Reset initial user
-        // 4. Route to view
-
+        axios.post(`http://localhost:5000/api/login`, user)
+            .then( response => {
+                localStorage.setItem('token', response.data.token);
+                push("/view")
+            })
+            .catch( error => {
+                console.log(error);
+            })
        
     }
 
