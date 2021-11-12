@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import Article from './Article';
 import EditForm from './EditForm';
+import articleService from '../services/articleServices';
+import axiosWithAuth from '../utils/axiosWithAuth';
+
 
 const View = (props) => {
     const [articles, setArticles] = useState([]);
@@ -10,6 +13,13 @@ const View = (props) => {
     const [editId, setEditId] = useState();
 
     const handleDelete = (id) => {
+        axiosWithAuth().delete(`/articles/${id}`)
+            .then(response => {
+                setArticles(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            })
     }
 
     const handleEdit = (article) => {
@@ -23,6 +33,10 @@ const View = (props) => {
     const handleEditCancel = ()=>{
         setEditing(false);
     }
+
+    useEffect( () => {
+        articleService(setArticles);
+    }, [])
 
     return(<ComponentContainer>
         <HeaderContainer>View Articles</HeaderContainer>
