@@ -1,12 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import axios from 'axios';
+import axiosWithAuth from '../utils/axiosWithAuth';
 
+const initialUser ={
+    username: "",
+    password: ""
+}
 const Login = () => {
     
+    const [user, setUser] = useState(initialUser);
+
+    const handleChange = (e) => {
+        console.log(e.target.value); // <<<<<<<<<<< CONSOLE LOG
+        setUser({
+            ...user,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log('CLICK SUBMIT')
+        
+        // 1. Authenticate
+        // 2. Save to local storage
+        // 3. Reset initial user
+        // 4. Route to view
+
+       
+    }
+
     return(<ComponentContainer>
         <ModalContainer>
             <h1>Welcome to Blogger Pro</h1>
             <h2>Please enter your account information.</h2>
+            <form onSubmit={handleSubmit}>
+                <input id="username" type="text" name="username" value={user.username} onChange={handleChange} /><br/>
+                <input id="password" type="password" name="password" value={user.password} onChange={handleChange} /><br/>
+                <button id="submit">Login</button>
+            </form>
         </ModalContainer>
     </ComponentContainer>);
 }
