@@ -7,9 +7,12 @@ const initialUser ={
     username: "",
     password: ""
 }
+
 const Login = () => {
     
     const [user, setUser] = useState(initialUser);
+    const [loginFailed, setLoginFailed] = useState(false);
+    
     const { push } = useHistory();
 
     const handleChange = (e) => {
@@ -24,10 +27,12 @@ const Login = () => {
         axios.post(`http://localhost:5000/api/login`, user)
             .then( response => {
                 localStorage.setItem('token', response.data.token);
+                setLoginFailed(false);
                 push("/view")
             })
             .catch( error => {
                 console.log(error);
+                setLoginFailed(true);
             })
        
     }
@@ -39,6 +44,7 @@ const Login = () => {
             <form onSubmit={handleSubmit}>
                 <input id="username" type="text" name="username" value={user.username} onChange={handleChange} /><br/>
                 <input id="password" type="password" name="password" value={user.password} onChange={handleChange} /><br/>
+                { loginFailed && <p id="error">Username or password did not match!</p>}
                 <button id="submit">Login</button>
             </form>
         </ModalContainer>
