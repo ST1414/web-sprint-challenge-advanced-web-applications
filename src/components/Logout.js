@@ -1,6 +1,18 @@
 import React from 'react';
+import { useHistory } from 'react-router';
+import axiosWithAuth from '../utils/axiosWithAuth';
 
-const Logout = () => {        
+const Logout = () => {    
+    const { push } = useHistory();
+
+    axiosWithAuth().post('/logout')
+        .then( response => {
+            localStorage.removeItem('token');
+            push('/');
+        })
+        .catch( error => {
+            console.log(error);
+        })
     return(<div></div>);
 }
 
