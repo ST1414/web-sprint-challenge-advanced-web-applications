@@ -52,8 +52,8 @@ const View = (props) => {
             <ArticleContainer>
                 {
                     articles.map(article => {
-                        return <ArticleDivider key={article.id}>
-                            <Article key={article.id} article={article} handleDelete={handleDelete} handleEditSelect={handleEditSelect}/>
+                        return <ArticleDivider data-testid="view-article" key={article.id}>
+                            <Article data-testid="view-article" key={article.id} article={article} handleDelete={handleDelete} handleEditSelect={handleEditSelect}/>
                         </ArticleDivider>
                     })
                 }

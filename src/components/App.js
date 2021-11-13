@@ -15,6 +15,7 @@ const App = () => {
       <LambdaHeader/>
       <Header/>
       <RouteContainer>
+
         <Route exact path="/">
           <Login/>
         </Route>
@@ -23,18 +24,9 @@ const App = () => {
           <Login/>
         </Route>   
 
-        {/* <Route path="/view">
-          <View/>
-        </Route>       */}
-
         <PrivateRoute path="/view" component={View} />
 
-        {/* <Route path="/logout">
-          <Logout/>
-        </Route>     */}
-
         <PrivateRoute path="/logout" component={Logout} />
-
 
       </RouteContainer>
     </AppContainer>

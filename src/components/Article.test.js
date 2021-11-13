@@ -51,7 +51,7 @@ test('renders "Associated Press" when no author is given', ()=> {
 test('executes handleDelete when the delete button is pressed', ()=> {
     
     const fakeHAndleDelete = jest.fn( () => {
-        console.log('FAKE FUNCTION CALLED')
+        
     });
 
     render(<Article key={article.id} article={article} handleDelete={fakeHAndleDelete} handleEditSelect={null} />)
